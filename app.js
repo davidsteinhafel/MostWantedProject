@@ -40,10 +40,14 @@ function mainMenu(person, people){
       // TODO: get person's info
       break;
     case "family":
+      let family = searchForFamily(person.id, people);
+      displayPeople(family);
       // TODO: get person's family
       break;
     case "descendants":
       // TODO: get person's descendants
+      let descendants = searchForDescendants(person, people);
+      displayPeople(descendants);
       break;
     case "restart":
       app(people); // restart
@@ -67,6 +71,23 @@ function searchByName(people){
   // TODO: What to do with filteredPeople?
   return filteredPeople.shift();
 }
+ var searchForFamily = (id, people) => people.filter(x => x.currentSpouse == id || x.parents.includes(id));
+
+ var searchForDescendants = (person, people, descendants = [], loopCounter = 0) => {
+    let children = people.filter(x => x.parents.includes(person.id));
+
+    if (children.length > 0){
+        if(loopCounter > 0){
+          descendants.push(person);
+        }
+
+        children.map(x => searchForDescendants(x, people, descendants, ++loopCounter));
+    }
+    else{
+      descendants.push(person);
+    }
+    return descendants;
+  }
 
 // alerts a list of people
 function displayPeople(people){
@@ -80,15 +101,31 @@ function displayPerson(person){
   // height, weight, age, name, occupation, eye color.
   var personInfo = "First Name: " + person.firstName + "\n";
   personInfo += "Last Name: " + person.lastName + "\n";
-  
+
   // TODO: finish getting the rest of the information to display
   personInfo += "Gender: " + person.gender + "\n";
-  personInfo += "Date of Birth: " + person.dob + "\n";
+  personInfo += "Age: " + getAge(person.dob) + "\n";
   personInfo += "Height: " + person.height + "\n";
   personInfo += "Weight: " + person.weight + "\n";
   personInfo += "Eye Color: " + person.eyeColor + "\n";
   personInfo += "Occupation: " + person.occupation + "\n";
   alert(personInfo);
+}
+
+function getAge(dob){
+
+  let today = new Date();
+  let birthdate = new Date(dob);
+
+  let thisYear = new Date().getFullYear();
+  let splitItems = dob.split('/');
+  let birthYear = parseInt(splitItems[splitItems.length - 1]);
+  let age = thisYear - birthYear;
+
+  // if()
+
+
+  return thisYear - birthYear;
 }
 
 // function that prompts and validates user input
