@@ -8,6 +8,8 @@ function app(people){
   var searchType = promptFor("Do you know the name of the person you are looking for? Enter 'yes' or 'no'", yesNo).toLowerCase();
   switch(searchType){
     case 'yes':
+      let person = searchByName(people);
+      mainMenu(person, people)
       // TODO: search by name
       break;
     case 'no':
@@ -61,9 +63,10 @@ function searchByName(people){
       return el;
     }
   });
-
+return filteredPeople.shift();
+  
   // TODO: What to do with filteredPeople?
-
+  
 }
 
 // alerts a list of people
