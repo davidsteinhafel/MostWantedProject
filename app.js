@@ -82,7 +82,6 @@ function searchByTraits(people, traits = []){
 
 }
 
-
  var searchForFamily = (person, people) => people.filter(x => x.currentSpouse == person.id || x.parents.includes(person.id))
     .concat(person.parents.map(parentId => people.reduce((parent,el) => el.id == parentId ? el : parent )))
     .concat(getSiblings(person.parents, people));
@@ -195,4 +194,6 @@ function chars(input){
 function charsRegEx(input){
   let pattern = /(gender|dob|height|weight|eye color|occupation|stop)/i;
   return pattern.test(input); // default validation only
+
+  
 }
