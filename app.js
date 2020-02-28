@@ -202,5 +202,5 @@ function charsRegEx(input){
   let pattern = /(gender|dob|height|weight|eye color|occupation|stop)/i;
   return pattern.test(input); // default validation only
 
-  
+
 }
