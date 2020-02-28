@@ -9,8 +9,7 @@ function app(people){
   switch(searchType){
     case 'yes':
       let person = searchByName(people);
-      mainMenu(person, people)
-      // TODO: search by name
+      mainMenu(person, people);
       break;
     case 'no':
       // TODO: search by traits
@@ -36,9 +35,11 @@ function mainMenu(person, people){
 
   switch(displayOption){
     case "info":
+      displayPerson(person);
       // TODO: get person's info
       break;
     case "family":
+      findFamily(person, people)
       // TODO: get person's family
       break;
     case "descendants":
@@ -63,10 +64,8 @@ function searchByName(people){
       return el;
     }
   });
-return filteredPeople.shift();
-  
   // TODO: What to do with filteredPeople?
-  
+  return filteredPeople.shift();
 }
 
 // alerts a list of people
@@ -81,8 +80,23 @@ function displayPerson(person){
   // height, weight, age, name, occupation, eye color.
   var personInfo = "First Name: " + person.firstName + "\n";
   personInfo += "Last Name: " + person.lastName + "\n";
+  
   // TODO: finish getting the rest of the information to display
+  personInfo += "Gender: " + person.gender + "\n";
+  personInfo += "Date of Birth: " + person.dob + "\n";
+  personInfo += "Height: " + person.height + "\n";
+  personInfo += "Weight: " + person.weight + "\n";
+  personInfo += "Eye Color: " + person.eyeColor + "\n";
+  personInfo += "Occupation: " + person.occupation + "\n";
   alert(personInfo);
+}
+function findFamily(person, people){
+  var children = people.filter(p => p.parents.includes(person.id));
+  var spouse = people.filter(p => p.currentSpouse == person.id);
+  var familyInfo = "Children: " + children.firstName + "\n";
+  familyInfo += "Current Spouse: " + spouse.firstName + "\n";
+  familyInfo += "Parents: " + person.parents + "\n";
+  alert(familyInfo);
 }
 
 // function that prompts and validates user input
