@@ -13,8 +13,6 @@ function app(people){
       break;
     case 'no':
       // TODO: search by traits
-      let person = searchByTraits(people);
-      mainMenu(person, people);
       break;
     default:
       alert("Invalid input. Please try again!");
@@ -41,7 +39,7 @@ function mainMenu(person, people){
       // TODO: get person's info
       break;
     case "family":
-      let family = searchForFamily(person, people);
+      let family = searchForFamily(person.id, people);
       displayPeople(family);
       // TODO: get person's family
       break;
@@ -72,18 +70,7 @@ function searchByName(people){
   // TODO: What to do with filteredPeople?
   return filteredPeople.shift();
 }
-
-function searchByTraits(people, traits = []){
-  var trait = promptFor("Please enter what you would like to search for('Gender','Dob','Height','Weight','Eye Color','Occupation'). \nType 'stop' to quit searching.",chars);
-  
-  if(trait === "quit" ){
-  }
-
-}
-
- var searchForFamily = (person, people) => people.filter(x => x.currentSpouse == person.id || x.parents.includes(person.id))
-    .concat(person.parents.map(parentId => people.reduce((parent,el) => el.id == parentId ? el : parent )))
-    .concat(getSiblings(person.parents, people));
+ var searchForFamily = (id, people) => people.filter(x => x.currentSpouse == id || x.parents.includes(id));
 
  var searchForDescendants = (person, people, descendants = [], loopCounter = 0) => {
     let children = people.filter(x => x.parents.includes(person.id));
@@ -100,17 +87,6 @@ function searchByTraits(people, traits = []){
     }
     return descendants;
   }
-
- var getPerson = (id, people) => people.find(x => x.id == id);
- var getSiblings = (parents, people)  => {
-   var siblings = [];
-
-   parents.map(parentId => {
-     siblings = siblings.concat(people.filter(x => x.parents.includes(parentId)));
-   });
-   return siblings;
- }
-
 
 // alerts a list of people
 function displayPeople(people){
@@ -144,15 +120,19 @@ function findFamily(person, people){
 }
 
 function getAge(dob){
+
   let today = new Date();
-  let dobComponents = dob.split('/').map(x => parseInt(x));
+  let birthdate = new Date(dob);
 
-  let age = today.getFullYear() - dobComponents[2];
-  let month = today.getMonth() - dobComponents[1];
-  let day = today.getDate() - dobComponents[0];
+  let thisYear = new Date().getFullYear();
+  let splitItems = dob.split('/');
+  let birthYear = parseInt(splitItems[splitItems.length - 1]);
+  let age = thisYear - birthYear;
 
-  return (month < 0 || (month == 0 && day < 0)) ? age - 1 : age;
+  // if()
 
+
+  return thisYear - birthYear;
 }
 
 // function that prompts and validates user input
@@ -170,37 +150,5 @@ function yesNo(input){
 
 // helper function to pass in as default promptFor validation
 function chars(input){
-  switch(input.toLowerCase()){
-    case("gender"):
-      //do something
-      break;
-    case("dob"):
-      //do something
-      break;
-    case("height"):
-      //do something
-      break;
-    case("weight"):
-      //do something
-      break;
-    case("eye color"):
-      //do something
-      break;
-    case("occupation"):
-      //do something
-      break;
-    case("occupation"):
-      //do something
-      break;
-    default:
-      //do something
-      break;
-  }
-}
-
-function charsRegEx(input){
-  let pattern = /(gender|dob|height|weight|eye color|occupation|stop)/i;
-  return pattern.test(input); // default validation only
-
-  
+  return true; // default validation only
 }
