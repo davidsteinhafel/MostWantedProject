@@ -107,9 +107,6 @@ function searchByTraits(people, options, traits = []) {
   }
 }
 
-var searchForFamily = (person, people) => people.filter(x => x.currentSpouse == person.id || x.parents.includes(person.id))
-  .concat(person.parents.map(parentId => people.reduce((parent, el) => el.id == parentId ? el : parent)))
-  .concat(getSiblings(person.parents, people));
 
 function getFamily(person, people) {
   let children = people.filter(x => x.parents.includes(person.id));
@@ -154,7 +151,6 @@ var getSiblings = (parents, people) => {
   });
   return siblings;
 }
-
 
 // alerts a list of people
 function displayPeople(people) {

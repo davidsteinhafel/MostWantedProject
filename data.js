@@ -285,5 +285,31 @@ let data = [
 		"occupation": "doctor",
 		"parents": [313207561, 313997561],
 		"currentSpouse": null
+	},
+	{
+		"id": 215364758,
+		"firstName": "timmy",
+		"lastName": "Madden",
+		"gender": "male",
+		"dob": "2/02/2012",
+		"height": 67,
+		"weight": 100,
+		"eyeColor": "blue",
+		"occupation": "doctor",
+		"parents": [313998000],
+		"currentSpouse": null
+	},
+	{
+		"id": 162738495,
+		"firstName": "missy",
+		"lastName": "Madden",
+		"gender": "female",
+		"dob": "2/02/2013",
+		"height": 67,
+		"weight": 100,
+		"eyeColor": "blue",
+		"occupation": "doctor",
+		"parents": [313998000],
+		"currentSpouse": null
 	}
 ];
